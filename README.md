@@ -1,2 +1,3 @@
 # bulldozer
-This is to provide LF VPN access for China team when working from home
+
+The `bulldozer` app is to provide access to LF VPN for China team when working from home.
