@@ -34,9 +34,7 @@ func writeConfigFile() (string, error) {
 	config := []byte(wgConfig())
 
 	if _, err := os.Stat(configFileName); errors.Is(err, os.ErrNotExist) {
-		// path/to/whatever does *not* exist
-	  _, err = os.Create(configFileName)
-		if err != nil {
+	  if _, err = os.Create(configFileName); err != nil {
 			log.Println(err.Error())
 		  return "", fmt.Errorf("Fail to create config file")
 		}

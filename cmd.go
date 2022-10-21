@@ -29,7 +29,7 @@ func switchInterface(toggle bool) error {
 		return err
 	}
 
-	var motion string;
+	var motion string
 	if toggle {
 		motion = up
 	} else {
@@ -40,11 +40,11 @@ func switchInterface(toggle bool) error {
 		fmt.Println("motion: " + motion)
 	}
 
-	var running *exec.Cmd;
+	var running *exec.Cmd
 	if isReleaseMode {
 		running = exec.Command(bash, wgQuick, motion, configFile)
 	} else {
-		running = exec.Command(bash, "-c", "echo", motion)
+		running = exec.Command("bash", "-c", "echo", motion)
 	}
 
 	output, err := running.CombinedOutput()

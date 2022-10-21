@@ -50,7 +50,7 @@ func main() {
 					&cli.IntFlag{
 						Name:    "time",
 						Aliases: []string{"t"},
-						Value:   5,
+						Value:   9,
 						Usage:   "Hours that the LF VPN will be available for",
 					},
 					&cli.BoolFlag{
@@ -75,6 +75,14 @@ func main() {
 			{
 				Name:   "install",
 				Usage:  "Use homebrew to install required dependencies",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:    "bash-executable",
+						Aliases: []string{ "bash", "b" },
+						Value:   "",
+						Usage:   "The bash executable for wg-quick, required version: > 4.0.0",
+					},
+				},
 				Action: install,
 			},
 			{
