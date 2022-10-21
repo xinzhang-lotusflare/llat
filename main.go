@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
-	"io"
 	"strconv"
 
 	"github.com/urfave/cli/v2"
@@ -73,12 +73,12 @@ func main() {
 				Action:  stop,
 			},
 			{
-				Name:   "install",
-				Usage:  "Use homebrew to install required dependencies",
+				Name:  "install",
+				Usage: "Use homebrew to install required dependencies",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:    "bash-executable",
-						Aliases: []string{ "bash", "b" },
+						Aliases: []string{"bash", "b"},
 						Value:   "",
 						Usage:   "The bash executable for wg-quick, required version: > 4.0.0",
 					},

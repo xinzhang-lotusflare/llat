@@ -62,7 +62,7 @@ func install(cCtx *cli.Context) error {
 	if _, err := os.Stat(bashExecFile); errors.Is(err, os.ErrNotExist) {
 		if _, err = os.Create(bashExecFile); err != nil {
 			log.Println(err.Error())
-		  return fmt.Errorf("Fail to create 'bash' file under ~/.bdz")
+			return fmt.Errorf("Fail to create 'bash' file under ~/.bdz")
 		}
 	}
 
