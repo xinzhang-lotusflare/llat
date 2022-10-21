@@ -1,4 +1,4 @@
-module lf/infra/bulldozer
+module lf/infra/llat
 
 go 1.19
 

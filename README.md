@@ -1,12 +1,14 @@
-# bulldozer
+# LLat
 
-The `bulldozer` app is to provide access to LF VPN for China team when working from home.
+LLat, is short for Legal LF Access Tool.
+
+The `llat` app is to provide access to LF VPN **only** for China team when working from home.
 
 ## Install
 
 ### Dependencies
 
-`Bulldozer` need **Homebrew** to install dependencies:
+`llat` need **Homebrew** to install dependencies:
 
 ```
 brew install wireguard-tools
@@ -18,40 +20,40 @@ The installed dir of the `bash` should be **like** `/usr/local/Cellar/bash/5.1.1
 
 Take a note of it.
 
-### Prepare workspace for `bulldozer`
+### Prepare workspace for `llat`
 
-Place the `bulldozer` executable in your laptop's PATH. For example, put it in the folder `/usr/local/bin`.
+Place the `llat` executable in your laptop's PATH. For example, put it in the folder `/usr/local/bin`.
 
 Then execute command
 
 ```
-bulldozer install --bash <bash executable path>
+llat install --bash <bash executable path>
 ```
 The bash executable path is from above steps. It is `/usr/local/Cellar/bash/5.1.16/bin/bash` by the example.
 
-It will create a folder `~/.bdz` and a file `bash` inside it. The content of `bash` is the path of executable.
+It will create a folder `~/.llat` and a file `bash` inside it. The content of `bash` is the path of executable.
 
 ## How to use
 
-`Bulldozer` supports `-h` for help information at every level.
+`llat` supports `-h` for help information at every level.
 
-### Start bulldozer
-
-```
-sudo bulldozer run
-```
-
-### Shutdown bulldozer
+### Start llat
 
 ```
-sudo bulldozer stop
+sudo llat run
 ```
 
-For `run` and `stop`, `bulldozer` needs **root** permission for setting up / tearing down virtual network interface.
+### Shutdown llat
+
+```
+sudo llat stop
+```
+
+For `run` and `stop`, `llat` needs **root** permission for setting up / tearing down virtual network interface.
 
 *HINT:*
 
-Although the `bulldozer` only transmits LF VPN related packets, we have found some apps may hang up when establishing network connections while the `bulldozer` is running. If you met any network issue, please shut `bulldozer` down at first.
+Although the `llat` only transmits LF VPN related packets, we have found some apps may hang up when establishing network connections while the `llat` is running. If you met any network issue, please shut `llat` down at first.
 
 ## How to build
 
@@ -67,4 +69,4 @@ The last step is to execute command at the root of the repo:
 go build
 ```
 
-The executale `bulldozer` should be generated then.
+The executale `llat` should be generated then.
