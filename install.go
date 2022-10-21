@@ -39,36 +39,36 @@ func install(cCtx *cli.Context) error {
 		return fmt.Errorf(errMsg)
 	}
 
-	// create .bdz folder
+	// create .llat folder
 	userhome, err := os.UserHomeDir()
 	if err != nil {
 		log.Println(err.Error())
 		return fmt.Errorf("Fail to find user home dir")
 	}
 
-	bdzFolder := userhome + "/.bdz"
-	if _, err := os.Stat(bdzFolder); errors.Is(err, os.ErrNotExist) {
-		log.Println("Creating folder: ~/.bdz")
-		if err := os.Mkdir(bdzFolder, os.ModePerm); err != nil {
+	llatFolder := userhome + "/.llat"
+	if _, err := os.Stat(llatFolder); errors.Is(err, os.ErrNotExist) {
+		log.Println("Creating folder: ~/.llat")
+		if err := os.Mkdir(llatFolder, os.ModePerm); err != nil {
 			log.Println(err.Error())
-			return fmt.Errorf("Fail to create dir:" + "~/.bdz")
+			return fmt.Errorf("Fail to create dir:" + "~/.llat")
 		}
 		if allowPrintInfo() {
-			fmt.Println("Created folder: ~/.bdz")
+			fmt.Println("Created folder: ~/.llat")
 		}
 	}
 
-	bashExecFile := bdzFolder + "/bash"
+	bashExecFile := llatFolder + "/bash"
 	if _, err := os.Stat(bashExecFile); errors.Is(err, os.ErrNotExist) {
 		if _, err = os.Create(bashExecFile); err != nil {
 			log.Println(err.Error())
-			return fmt.Errorf("Fail to create 'bash' file under ~/.bdz")
+			return fmt.Errorf("Fail to create 'bash' file under ~/.llat")
 		}
 	}
 
 	if err := os.WriteFile(bashExecFile, []byte(bashPath), 0644); err != nil {
 		log.Println(err.Error())
-		return fmt.Errorf("Fail to write to 'bash' file under ~/.bdz")
+		return fmt.Errorf("Fail to write to 'bash' file under ~/.llat")
 	}
 
 	fmt.Println("Installed")

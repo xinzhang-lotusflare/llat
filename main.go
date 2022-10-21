@@ -13,7 +13,9 @@ import (
 var verbose = false
 
 func createVirtualInterface(time int) error {
-	switchInterface(true)
+	if err := switchInterface(true); err != nil {
+		return err
+	}
 	fmt.Println("Running")
 	return nil
 }
@@ -28,7 +30,9 @@ func run(cCtx *cli.Context) error {
 }
 
 func stop(cCtx *cli.Context) error {
-	switchInterface(false)
+	if err := switchInterface(false); err != nil {
+		return err
+	}
 	fmt.Println("Stop")
 	return nil
 }
@@ -39,7 +43,7 @@ func main() {
 	}
 
 	app := &cli.App{
-		Name:  "bulldozer",
+		Name:  "llat",
 		Usage: "Build you way to LF infra world",
 		Commands: []*cli.Command{
 			{
@@ -47,17 +51,17 @@ func main() {
 				Aliases: []string{"r"},
 				Usage:   "Show me the LF VPN",
 				Flags: []cli.Flag{
-					&cli.IntFlag{
-						Name:    "time",
-						Aliases: []string{"t"},
-						Value:   9,
-						Usage:   "Hours that the LF VPN will be available for",
-					},
+					// &cli.IntFlag{
+					// 	Name:    "time",
+					// 	Aliases: []string{"t"},
+					// 	Value:   9,
+					// 	Usage:   "Hours that the LF VPN will be available for",
+					// },
 					&cli.BoolFlag{
 						Name:    "verbose",
 						Aliases: []string{"v"},
 						Value:   false,
-						Usage:   "If enabled, bulldozer will print more logs",
+						Usage:   "If enabled, llat will print more logs",
 						Action: func(cCtx *cli.Context, value bool) error {
 							verbose = value
 							return nil
@@ -85,11 +89,11 @@ func main() {
 				},
 				Action: install,
 			},
-			{
-				Name:   "upgrade",
-				Usage:  "Upgrade the bulldozer",
-				Action: upgrade,
-			},
+			// {
+			// 	Name:   "upgrade",
+			// 	Usage:  "Upgrade the llat",
+			// 	Action: upgrade,
+			// },
 		},
 	}
 

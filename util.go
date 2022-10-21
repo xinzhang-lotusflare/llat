@@ -24,15 +24,22 @@ func allowPrintInfo() bool {
 }
 
 func writeConfigFile() (string, error) {
-	interfaceName := "bulldozer"
+	interfaceName := "llat"
 	userhome, err := os.UserHomeDir()
 	if err != nil {
 		log.Println(err.Error())
 		return "", fmt.Errorf("Fail to find user home dir")
 	}
-	configFileName := userhome + "/.bdz/" + interfaceName + ".conf"
-	config := []byte(wgConfig())
 
+	llatFolder := userhome + "/.llat/"
+	if _, err := os.Stat(llatFolder); errors.Is(err, os.ErrNotExist) {
+		errMsg := "You need to run 'install' first. The workspace doesn't exist: ~/.llat"
+		fmt.Println(errMsg)
+		return "", fmt.Errorf(errMsg)
+	}
+
+	configFileName := llatFolder + interfaceName + ".conf"
+	config := []byte(wgConfig())
 	if _, err := os.Stat(configFileName); errors.Is(err, os.ErrNotExist) {
 		if _, err = os.Create(configFileName); err != nil {
 			log.Println(err.Error())
@@ -64,7 +71,7 @@ func getBash() (string, error) {
 		log.Println(err.Error())
 		return "", fmt.Errorf("Fail to find user home dir")
 	}
-	file := userhome + "/.bdz/bash"
+	file := userhome + "/.llat/bash"
 	bytes, err := os.ReadFile(file)
 	if err != nil {
 		err = fmt.Errorf("Fail to find bash executable from file: " + file)
