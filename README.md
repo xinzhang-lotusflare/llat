@@ -2,7 +2,9 @@
 
 The `bulldozer` app is to provide access to LF VPN for China team when working from home.
 
-## Install denpendencies
+## Install
+
+### Dependencies
 
 `Bulldozer` need **Homebrew** to install dependencies:
 
@@ -16,13 +18,16 @@ The installed dir of the `bash` should be like `/usr/local/Cellar/bash/5.1.16`. 
 
 So the path of executable of `bash` would be like `/usr/local/Cellar/bash/5.1.16/bin/bash`. Take a note of it.
 
+### Prepare workspace for `bulldozer`
+
 Place the `bulldozer` executable in your laptop's PATH.
 
 Then execute command
 
 ```
-bulldozer install --bash /usr/local/Cellar/bash/5.1.16/bin/bash
+bulldozer install --bash <bash executable path>
 ```
+The bash executable path is from above steps, for example: `/usr/local/Cellar/bash/5.1.16/bin/bash`.
 
 It will generate a folder `~/.bdz` and a file `bash` inside. The content of `bash` is the path of installed `bash` 4+ executable.
 
