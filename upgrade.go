@@ -7,6 +7,6 @@ import (
 )
 
 func upgrade(cCtx *cli.Context) error {
-	fmt.Println("Not implemented") // TODO: download this executable, then brea update the PKG
+	fmt.Println("Not implemented") // TODO: download this executable fromm github release, then update the homebrew
 	return nil
 }
