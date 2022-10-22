@@ -44,12 +44,12 @@ func main() {
 
 	app := &cli.App{
 		Name:  "llat",
-		Usage: "Build you way to LF infra world",
+		Usage: "Guide you a way to LF infra world",
 		Commands: []*cli.Command{
 			{
 				Name:    "run",
 				Aliases: []string{"r"},
-				Usage:   "Show me the LF VPN",
+				Usage:   "Start to use LF VPN",
 				Flags: []cli.Flag{
 					// &cli.IntFlag{
 					// 	Name:    "time",
@@ -78,7 +78,7 @@ func main() {
 			},
 			{
 				Name:  "install",
-				Usage: "Use homebrew to install required dependencies",
+				Usage: "Prepare workspace: ~/.llat",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:    "bash-executable",

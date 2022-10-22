@@ -4,6 +4,8 @@ LLat, is short for Legal LF Access Tool.
 
 The `llat` app is to provide access to LF VPN **only** for China team when working from home.
 
+`llat` is tested on MacOS only.
+
 ## Install
 
 ### Dependencies
@@ -22,7 +24,17 @@ Take a note of it.
 
 ### Prepare workspace for `llat`
 
-Place the `llat` executable in your laptop's PATH. For example, put it in the folder `/usr/local/bin`.
+Download the latest `llat` executable from [Github releases](https://github.com/xinzhang-lotusflare/llat/releases).
+
+Place the `llat` in your laptop's PATH. For example, put it in the folder `/usr/local/bin`.
+
+Make sure the binary file has executable permission
+
+```
+sudo chmod a+x `which llat`
+```
+
+> If the MacOS alerts the binary cannot be verified, please set it as trusted in the `Security & Privacy` of `System Preferences`.
 
 Then execute command
 
@@ -56,6 +68,8 @@ For `run` and `stop`, `llat` needs **root** permission for setting up / tearing 
 Although the `llat` only transmits LF VPN related packets, we have found some apps may hang up when establishing network connections while the `llat` is running. If you met any network issue, please shut `llat` down at first.
 
 ## How to build
+
+`llat` is implemented in Go. Make sure you have Go developement environment prepared.
 
 Prepare required variables claimed in file `variables.sh`.
 
