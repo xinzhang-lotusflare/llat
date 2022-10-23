@@ -5,5 +5,6 @@ PeerPublicKey=""
 PeerPresharedKey=""
 # LF related config
 LfVpnIp=""
+LfDns=""
 JumpServerIp=""
 JumpServerPort=""
