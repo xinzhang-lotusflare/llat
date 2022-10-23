@@ -12,21 +12,17 @@ import (
 
 var verbose = false
 
-func createVirtualInterface(time int) error {
-	if err := switchInterface(true); err != nil {
-		return err
-	}
-	fmt.Println("Running")
-	return nil
-}
-
 func run(cCtx *cli.Context) error {
 	time := min(cCtx.Int("time"), 12)
 	if allowPrintInfo() {
 		fmt.Println("It will last for " + strconv.Itoa(time) + " hours")
 	}
 
-	return createVirtualInterface(time)
+	if err := switchInterface(true); err != nil {
+		return err
+	}
+	fmt.Println("Running")
+	return nil
 }
 
 func stop(cCtx *cli.Context) error {
@@ -44,7 +40,7 @@ func main() {
 
 	app := &cli.App{
 		Name:  "llat",
-		Usage: "Guide you a way to LF infra world",
+		Usage: "Guide you a way for LF VPN",
 		Commands: []*cli.Command{
 			{
 				Name:    "run",
