@@ -22,21 +22,27 @@ The installed dir of the `bash` should be **like** `/usr/local/Cellar/bash/5.1.1
 
 Take a note of it.
 
-### Prepare workspace for `llat`
+### Install Binary
 
-Download the latest `llat` executable from [Github releases](https://github.com/xinzhang-lotusflare/llat/releases).
+There are 2 ways to install `llat` binary.
 
-Place the `llat` in your laptop's PATH. For example, put it in the folder `/usr/local/bin`.
+1. Put the `llat` binary in your laptop's PATH. For example, put it in the folder `/usr/local/bin`. Make sure the binary file has executable permission
 
-Make sure the binary file has executable permission
+    ```
+    sudo chmod a+x `which llat`
+    ```
+2. Uncompress llat.tar with command: `tar -xvf llat.tar && sudo mv llat /usr/local/bin/llat`
 
-```
-sudo chmod a+x `which llat`
-```
+Both the binary and tar file are available in [Github releases](https://github.com/xinzhang-lotusflare/llat/releases).
+
+You can execute `llat` directly in console to confirm it is installed correctly.
 
 > If the MacOS alerts the binary cannot be verified, please set it as trusted in the `Security & Privacy` of `System Preferences`.
 
-Then execute command
+
+### Prepare workspace for `llat`
+
+Once the `llat` is installed, we need to prepare workspace before using it.
 
 ```
 llat install --bash <bash executable path>
