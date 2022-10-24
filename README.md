@@ -6,6 +6,8 @@ The `llat` app is to provide access to LF VPN **only** for China team when worki
 
 `llat` is tested on MacOS only.
 
+A detailed explanation may refer to the [page](https://lotusflare.atlassian.net/wiki/spaces/~87917946/pages/4073783773/How+LLat+works).
+
 ## Install
 
 ### Dependencies
