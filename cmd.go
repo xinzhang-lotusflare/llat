@@ -17,7 +17,7 @@ func switchInterface(toggle bool) error {
 		return fmt.Errorf(err)
 	}
 
-	configFile, err := writeConfigFile()
+	configFile, err := writeWgConfigFile()
 	if err != nil {
 		return err
 	}

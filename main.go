@@ -88,6 +88,12 @@ func main() {
 						Value:   "",
 						Usage:   "The bash executable for wg-quick, required version: > 4.0.0",
 					},
+					&cli.StringFlag{
+						Name:    "llat-config",
+						Aliases: []string{"config", "c"},
+						Value:   "",
+						Usage:   "The config file provided by LLat admin",
+					},
 				},
 				Action: install,
 			},

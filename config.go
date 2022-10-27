@@ -15,9 +15,9 @@ type LlatConfig struct {
 	presharedKey string
 }
 
-func getConfig(llatFolder string) (*LlatConfig, error) {
-	log.Println("Read llat config from folder:" + llatFolder)
-	llatConfigFile := llatFolder + "/config"
+func getConfig(llatWorkspace string) (*LlatConfig, error) {
+	log.Println("Read llat config from folder:" + llatWorkspace)
+	llatConfigFile := llatWorkspace + "/config"
 
 	readFile, err := os.Open(llatConfigFile)
 	if err != nil {
@@ -34,6 +34,11 @@ func getConfig(llatFolder string) (*LlatConfig, error) {
 		fmt.Println()
 		// the config line is in format: "KEY = VAL"
 		splitted := strings.Fields(fileScanner.Text())
+		if len(splitted) != 3 || splitted[1] != "=" {
+			errMsg := "Unrecognised config"
+			fmt.Println(errMsg)
+			return nil, fmt.Errorf(errMsg)
+		}
 		k := strings.TrimSpace(splitted[0])
 		v := strings.TrimSpace(splitted[2])
 		configMap[k] = v
