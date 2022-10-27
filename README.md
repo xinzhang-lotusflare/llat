@@ -47,11 +47,12 @@ You can execute `llat` directly in console to confirm it is installed correctly.
 Once the `llat` is installed, we need to prepare workspace before using it.
 
 ```
-llat install --bash <bash executable path>
+llat install --bash <bash executable path> --config <path of config>
 ```
-The bash executable path is from above steps. It is `/usr/local/Cellar/bash/5.1.16/bin/bash` by the example.
+* The bash executable path is from above steps. It is `/usr/local/Cellar/bash/5.1.16/bin/bash` by the example.
+* The config is provided by LLat admin.
 
-It will create a folder `~/.llat` and a file `bash` inside it. The content of `bash` is the path of executable.
+It will create a folder `~/.llat` and file `bash`, `config` inside it.
 
 ## How to use
 
