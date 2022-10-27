@@ -35,7 +35,7 @@ func getConfig(llatWorkspace string) (*LlatConfig, error) {
 		// the config line is in format: "KEY = VAL"
 		splitted := strings.Fields(fileScanner.Text())
 		if len(splitted) != 3 || splitted[1] != "=" {
-			errMsg := "Unrecognised config"
+			errMsg := "Unrecognized config"
 			fmt.Println(errMsg)
 			return nil, fmt.Errorf(errMsg)
 		}
