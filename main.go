@@ -47,12 +47,6 @@ func main() {
 				Aliases: []string{"r"},
 				Usage:   "Start to use LF VPN",
 				Flags: []cli.Flag{
-					// &cli.IntFlag{
-					// 	Name:    "time",
-					// 	Aliases: []string{"t"},
-					// 	Value:   9,
-					// 	Usage:   "Hours that the LF VPN will be available for",
-					// },
 					&cli.BoolFlag{
 						Name:    "verbose",
 						Aliases: []string{"v"},
@@ -70,6 +64,18 @@ func main() {
 				Name:    "stop",
 				Aliases: []string{"s"},
 				Usage:   "No need for LF VPN any more",
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:    "verbose",
+						Aliases: []string{"v"},
+						Value:   false,
+						Usage:   "If enabled, llat will print more logs",
+						Action: func(cCtx *cli.Context, value bool) error {
+							verbose = value
+							return nil
+						},
+					},
+				},
 				Action:  stop,
 			},
 			{
@@ -85,11 +91,6 @@ func main() {
 				},
 				Action: install,
 			},
-			// {
-			// 	Name:   "upgrade",
-			// 	Usage:  "Upgrade the llat",
-			// 	Action: upgrade,
-			// },
 		},
 	}
 

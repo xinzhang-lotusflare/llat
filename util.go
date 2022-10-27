@@ -38,21 +38,33 @@ func writeConfigFile() (string, error) {
 		return "", fmt.Errorf(errMsg)
 	}
 
-	configFileName := llatFolder + interfaceName + ".conf"
-	config := []byte(wgConfig())
-	if _, err := os.Stat(configFileName); errors.Is(err, os.ErrNotExist) {
-		if _, err = os.Create(configFileName); err != nil {
+	llatConfig, err := getConfig(llatFolder)
+	if err != nil {
+		errMsg := "fail to get llat config"
+		fmt.Println(errMsg)
+		return "", fmt.Errorf(errMsg)
+	}
+	wgConfig := []byte(wgConfig(
+		llatConfig.ipAddress,
+		llatConfig.privateKey,
+		llatConfig.publicKey,
+		llatConfig.presharedKey,
+	))
+
+	wgConfigFileName := llatFolder + interfaceName + ".conf"
+	if _, err := os.Stat(wgConfigFileName); errors.Is(err, os.ErrNotExist) {
+		if _, err = os.Create(wgConfigFileName); err != nil {
 			log.Println(err.Error())
-			return "", fmt.Errorf("Fail to create config file")
+			return "", fmt.Errorf("Fail to create WireGuard config file")
 		}
 	}
 
-	if err := os.WriteFile(configFileName, config, 0644); err != nil {
+	if err := os.WriteFile(wgConfigFileName, wgConfig, 0644); err != nil {
 		log.Println(err.Error())
-		return "", fmt.Errorf("Fail to write to config file")
-	} else {
-		return configFileName, nil
+		return "", fmt.Errorf("Fail to write to WireGuard config file")
 	}
+
+	return wgConfigFileName, nil
 }
 
 func clearConfigFile(filename string) error {
