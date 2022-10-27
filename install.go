@@ -46,10 +46,10 @@ func install(cCtx *cli.Context) error {
 		return fmt.Errorf("Fail to find user home dir")
 	}
 
-	llatFolder := userhome + "/.llat"
-	if _, err := os.Stat(llatFolder); errors.Is(err, os.ErrNotExist) {
+	llatWorkspace := userhome + "/.llat"
+	if _, err := os.Stat(llatWorkspace); errors.Is(err, os.ErrNotExist) {
 		log.Println("Creating folder: ~/.llat")
-		if err := os.Mkdir(llatFolder, os.ModePerm); err != nil {
+		if err := os.Mkdir(llatWorkspace, os.ModePerm); err != nil {
 			log.Println(err.Error())
 			return fmt.Errorf("Fail to create dir:" + "~/.llat")
 		}
@@ -58,17 +58,27 @@ func install(cCtx *cli.Context) error {
 		}
 	}
 
-	bashExecFile := llatFolder + "/bash"
-	if _, err := os.Stat(bashExecFile); errors.Is(err, os.ErrNotExist) {
-		if _, err = os.Create(bashExecFile); err != nil {
-			log.Println(err.Error())
-			return fmt.Errorf("Fail to create 'bash' file under ~/.llat")
-		}
+	bashPathInBytes := func() ([]byte, error) {
+		return []byte(bashPath), nil
+	}
+	err = writeFileInWorkspace(llatWorkspace, "bash", bashPathInBytes)
+	if err != nil {
+		return err
 	}
 
-	if err := os.WriteFile(bashExecFile, []byte(bashPath), 0644); err != nil {
-		log.Println(err.Error())
-		return fmt.Errorf("Fail to write to 'bash' file under ~/.llat")
+	readConfig := func() ([]byte, error) {
+		configPath := cCtx.String("llat-config")
+		log.Println("Copy config from: " + configPath)
+		bytes, err := os.ReadFile(configPath)
+		if err != nil {
+			err = fmt.Errorf("Fail to copy from file: " + configPath)
+			return nil, err
+		}
+		return bytes, nil
+	}
+	err = writeFileInWorkspace(llatWorkspace, "config", readConfig)
+	if err != nil {
+		return err
 	}
 
 	fmt.Println("Installed")

@@ -5,14 +5,14 @@ package main
 
 const mode = \"$CompileMode\"
 
-func wgConfig() string {
+func wgConfig(ipAddress string, privateKey string, publicKey string, presharedKey string) string {
 	return \`[Interface]
-Address = 10.7.0.2/24
-DNS = $LfDns, 8.8.8.8
-PrivateKey = $InterfacePrivateKey
+Address = \` + ipAddress + \`
+DNS = $LfDns, $SecondaryDns
+PrivateKey = \` + privateKey + \`
 [Peer]
-PublicKey = $PeerPublicKey
-PresharedKey = $PeerPresharedKey
+PublicKey = \` + publicKey + \`
+PresharedKey = \` + presharedKey + \`
 AllowedIPs = $LfVpnIp/32
 Endpoint = $JumpServerIp:$JumpServerPort
 PersistentKeepalive = 25\`

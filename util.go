@@ -23,7 +23,30 @@ func allowPrintInfo() bool {
 	return !(isReleaseMode && !verbose)
 }
 
-func writeConfigFile() (string, error) {
+func writeFileInWorkspace(workspace string, fileName string, getContent func() ([]byte, error)) error {
+	configFile := workspace + "/" + fileName
+	if _, err := os.Stat(configFile); errors.Is(err, os.ErrNotExist) {
+		if _, err = os.Create(configFile); err != nil {
+			log.Println(err.Error())
+			return fmt.Errorf("Fail to create '" + fileName + "' file under:" + workspace)
+		}
+	}
+
+	content, err := getContent()
+	if err != nil {
+		return nil
+	}
+
+	if err := os.WriteFile(configFile, content, 0644); err != nil {
+		log.Println(err.Error())
+		return fmt.Errorf("Fail to write to '" + fileName + "' file under:" + workspace)
+	}
+
+	fmt.Println("Installed")
+	return nil
+}
+
+func writeWgConfigFile() (string, error) {
 	interfaceName := "llat"
 	userhome, err := os.UserHomeDir()
 	if err != nil {
@@ -31,28 +54,37 @@ func writeConfigFile() (string, error) {
 		return "", fmt.Errorf("Fail to find user home dir")
 	}
 
-	llatFolder := userhome + "/.llat/"
-	if _, err := os.Stat(llatFolder); errors.Is(err, os.ErrNotExist) {
+	llatWorkspace := userhome + "/.llat/"
+	if _, err := os.Stat(llatWorkspace); errors.Is(err, os.ErrNotExist) {
 		errMsg := "You need to run 'install' first. The workspace doesn't exist: ~/.llat"
 		fmt.Println(errMsg)
 		return "", fmt.Errorf(errMsg)
 	}
 
-	configFileName := llatFolder + interfaceName + ".conf"
-	config := []byte(wgConfig())
-	if _, err := os.Stat(configFileName); errors.Is(err, os.ErrNotExist) {
-		if _, err = os.Create(configFileName); err != nil {
-			log.Println(err.Error())
-			return "", fmt.Errorf("Fail to create config file")
+	getWgConfig := func() ([]byte, error) {
+		llatConfig, err := getConfig(llatWorkspace)
+		if err != nil {
+			errMsg := "fail to get llat config"
+			fmt.Println(errMsg)
+			return nil, fmt.Errorf(errMsg)
 		}
+		wgConfig := []byte(wgConfig(
+			llatConfig.ipAddress,
+			llatConfig.privateKey,
+			llatConfig.publicKey,
+			llatConfig.presharedKey,
+		))
+		return wgConfig, nil
 	}
 
-	if err := os.WriteFile(configFileName, config, 0644); err != nil {
+	err = writeFileInWorkspace(llatWorkspace, interfaceName+".conf", getWgConfig)
+	if err != nil {
 		log.Println(err.Error())
-		return "", fmt.Errorf("Fail to write to config file")
-	} else {
-		return configFileName, nil
+		return "", fmt.Errorf("Fail to write to WireGuard config file")
 	}
+
+	wgConfigFileName := llatWorkspace + interfaceName + ".conf"
+	return wgConfigFileName, nil
 }
 
 func clearConfigFile(filename string) error {
