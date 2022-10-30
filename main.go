@@ -34,6 +34,7 @@ func stop(cCtx *cli.Context) error {
 	fmt.Println("Stop")
 	return nil
 }
+
 func get_version(cCtx *cli.Context) error {
 	fmt.Println("llat version", VERSION)
 	return nil
