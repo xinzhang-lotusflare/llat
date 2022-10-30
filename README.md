@@ -78,7 +78,7 @@ Although the `llat` only transmits LF VPN related packets, we have found some ap
 
 ## How to build
 
-`llat` is implemented in Go. Make sure you have Go developement environment prepared.
+`llat` is implemented in Go. Make sure you have Go developement environment prepared. Required Go version: > `1.19.0`.
 
 Prepare required variables claimed in file `variables.sh`.
 

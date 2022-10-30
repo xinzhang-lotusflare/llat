@@ -1,4 +1,4 @@
 llat
-llat.tar
+*.tar
 _variables.sh
 wg_config.go
