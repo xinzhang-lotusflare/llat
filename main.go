@@ -107,7 +107,7 @@ func main() {
 			{
 				Name:   "version",
 				Usage:  "Check current llat version",
-				Action: get_version,
+				Action: getVersion,
 			},
 		},
 	}
