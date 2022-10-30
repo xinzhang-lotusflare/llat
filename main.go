@@ -10,6 +10,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+const VERSION = "0.1"
+
 var verbose = false
 
 func run(cCtx *cli.Context) error {
@@ -30,6 +32,11 @@ func stop(cCtx *cli.Context) error {
 		return err
 	}
 	fmt.Println("Stop")
+	return nil
+}
+
+func getVersion(cCtx *cli.Context) error {
+	fmt.Println("llat version: ", VERSION)
 	return nil
 }
 
@@ -76,7 +83,7 @@ func main() {
 						},
 					},
 				},
-				Action:  stop,
+				Action: stop,
 			},
 			{
 				Name:  "install",
@@ -96,6 +103,11 @@ func main() {
 					},
 				},
 				Action: install,
+			},
+			{
+				Name:   "version",
+				Usage:  "Check current llat version",
+				Action: getVersion,
 			},
 		},
 	}
