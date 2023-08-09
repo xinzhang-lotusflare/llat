@@ -13,7 +13,7 @@ PrivateKey = \` + privateKey + \`
 [Peer]
 PublicKey = \` + publicKey + \`
 PresharedKey = \` + presharedKey + \`
-AllowedIPs = $LfVpnIp/32
+AllowedIPs = $LfVpnIp/32,$LfVpnIp2/32
 Endpoint = $JumpServerIp:$JumpServerPort
 PersistentKeepalive = 25\`
 }
